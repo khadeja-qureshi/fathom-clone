@@ -51,7 +51,7 @@ export function SearchClient() {
   };
 
   return (
-    <div className="mx-auto max-w-[1200px] px-4 py-8 md:px-8 space-y-6">
+    <div className="mx-auto max-w-[1536px] px-4 py-8 md:px-8 space-y-6">
       {/* Search Header */}
       <div className="rounded-3xl border border-[var(--line)] bg-[var(--panel-2)] p-8 shadow-sm space-y-6">
         <div className="max-w-2xl space-y-2">
@@ -184,19 +184,21 @@ export function SearchClient() {
                   </Link>
                 </div>
 
-                <div className="flex items-start gap-3 pt-1">
-                  {res.speakerName && (
-                    <Avatar person={speaker} size="sm" className="mt-0.5 shrink-0" />
-                  )}
-                  <div className="space-y-1">
+                <div className="rounded-xl border-l-4 border-[var(--accent)] bg-[var(--panel)] p-3.5 text-xs">
+                  <div className="flex items-start gap-3">
                     {res.speakerName && (
-                      <span className="text-xs font-semibold text-[var(--ink)] block">
-                        {res.speakerName}:
-                      </span>
+                      <Avatar person={speaker} size="sm" className="mt-0.5 shrink-0" />
                     )}
-                    <p className="text-xs text-[var(--ink)] leading-relaxed">
-                      {renderHighlightedSnippet(res.snippet, query)}
-                    </p>
+                    <div className="space-y-1 flex-1">
+                      {res.speakerName && (
+                        <span className="text-xs font-semibold text-[var(--ink)] block">
+                          {res.speakerName}
+                        </span>
+                      )}
+                      <p className="text-xs text-[var(--ink)] leading-relaxed italic">
+                        &ldquo;{renderHighlightedSnippet(res.snippet, query)}&rdquo;
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -40,7 +40,7 @@ export function ShareClient({ meeting, highlight }: ShareClientProps) {
   };
 
   return (
-    <div className="mx-auto max-w-[1200px] px-4 py-8 md:px-8 space-y-6">
+    <div className="mx-auto max-w-[1536px] px-4 py-8 md:px-8 space-y-6">
       {/* Public View Header Banner */}
       <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[var(--accent)]/30 bg-[var(--accent-soft)]/40 p-4 text-xs">
         <div className="flex items-center gap-2 text-[var(--accent)]">

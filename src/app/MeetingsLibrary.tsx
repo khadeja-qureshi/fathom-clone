@@ -90,10 +90,10 @@ export function MeetingsLibrary({ meetings }: MeetingsLibraryProps) {
   }, [meetings, selectedTag, selectedParticipant, searchQuery]);
 
   return (
-    <div className="mx-auto max-w-[1400px] px-4 py-8 md:px-8 space-y-8">
+    <div className="mx-auto max-w-[1536px] px-4 py-8 md:px-8 space-y-8">
       {/* Hero Header */}
-      <div className="relative overflow-hidden rounded-3xl border border-[var(--line)] bg-[var(--panel-2)] p-8 shadow-sm">
-        <div className="relative z-10 max-w-3xl space-y-4">
+      <div className="relative overflow-hidden rounded-3xl border border-[var(--line)] bg-[var(--panel-2)] p-6 md:p-8 shadow-sm">
+        <div className="relative z-10 max-w-4xl space-y-4">
           <div className="inline-flex items-center gap-2 rounded-full border border-[var(--accent)]/30 bg-[var(--accent-soft)] px-3 py-1 text-xs font-semibold text-[var(--accent)]">
             <span className="h-2 w-2 rounded-full bg-[var(--accent)]" />
             Post-Call Decisions & Follow-Through Workspace
@@ -103,35 +103,47 @@ export function MeetingsLibrary({ meetings }: MeetingsLibraryProps) {
             Where meeting conversations convert into commitments.
           </h1>
 
-          <p className="text-sm md:text-base text-[var(--ink-muted)] leading-relaxed">
-            Throughline connects playback, speaker-attributed transcripts, summary templates, explicit decisions, and interactive action items with jump-to-source evidence.
+          <p className="text-sm md:text-base text-[var(--ink-muted)] leading-relaxed max-w-3xl">
+            Throughline connects audio playback, speaker-attributed transcripts, switchable summary templates, explicit decisions, and interactive action items with 1-click jump-to-source evidence.
           </p>
         </div>
 
         {/* Global Metrics Bar */}
         <div className="mt-8 grid grid-cols-2 gap-4 border-t border-[var(--line)]/60 pt-6 sm:grid-cols-4">
-          <div className="space-y-1">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[var(--ink-muted)]">
-              Meetings
+          <div className="rounded-2xl border border-[var(--line)]/50 bg-[var(--panel)] p-4 space-y-1">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-[var(--ink-muted)] flex items-center gap-1.5">
+              <svg className="h-3.5 w-3.5 text-[var(--accent)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" />
+                <line x1="8" y1="21" x2="16" y2="21" />
+                <line x1="12" y1="17" x2="12" y2="21" />
+              </svg>
+              Meetings Corpus
             </span>
             <div className="font-[family-name:var(--font-display)] text-2xl font-bold text-[var(--ink)]">
               {metrics.totalMeetings}
             </div>
-            <p className="text-[11px] text-[var(--ink-muted)]">Short, medium, long</p>
+            <p className="text-[11px] text-[var(--ink-muted)]">Short, medium, 8-person long</p>
           </div>
 
-          <div className="space-y-1">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[var(--ink-muted)]">
+          <div className="rounded-2xl border border-[var(--accent)]/30 bg-[var(--accent-soft)]/30 p-4 space-y-1">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-[var(--accent)] flex items-center gap-1.5">
+              <svg className="h-3.5 w-3.5 text-[var(--accent)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
               Decisions Locked
             </span>
             <div className="font-[family-name:var(--font-display)] text-2xl font-bold text-[var(--accent)]">
               {metrics.decisionsCount}
             </div>
-            <p className="text-[11px] text-[var(--ink-muted)]">With timestamp proof</p>
+            <p className="text-[11px] text-[var(--ink-muted)]">With timestamp evidence</p>
           </div>
 
-          <div className="space-y-1">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[var(--ink-muted)]">
+          <div className="rounded-2xl border border-[var(--line)]/50 bg-[var(--panel)] p-4 space-y-1">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-[var(--ink-muted)] flex items-center gap-1.5">
+              <svg className="h-3.5 w-3.5 text-[var(--ink)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M9 11l3 3L22 4" />
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+              </svg>
               Action Items
             </span>
             <div className="font-[family-name:var(--font-display)] text-2xl font-bold text-[var(--ink)]">
@@ -140,17 +152,21 @@ export function MeetingsLibrary({ meetings }: MeetingsLibraryProps) {
                 open / {metrics.totalActions} total
               </span>
             </div>
-            <p className="text-[11px] text-[var(--ink-muted)]">Assigned & trackable</p>
+            <p className="text-[11px] text-[var(--ink-muted)]">Assigned with due dates</p>
           </div>
 
-          <div className="space-y-1">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[var(--ink-muted)]">
-              Recorded
+          <div className="rounded-2xl border border-[var(--line)]/50 bg-[var(--panel)] p-4 space-y-1">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-[var(--ink-muted)] flex items-center gap-1.5">
+              <svg className="h-3.5 w-3.5 text-[var(--ink)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              Duration Recorded
             </span>
             <div className="font-[family-name:var(--font-display)] text-2xl font-bold text-[var(--ink)]">
               {formatDuration(metrics.totalDuration)}
             </div>
-            <p className="text-[11px] text-[var(--ink-muted)]">Synthesized transcript</p>
+            <p className="text-[11px] text-[var(--ink-muted)]">Synced & searchable</p>
           </div>
         </div>
       </div>
