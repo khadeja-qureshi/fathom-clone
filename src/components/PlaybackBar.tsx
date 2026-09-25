@@ -29,14 +29,14 @@ export function PlaybackBar({
   onChangeRate,
   className = "",
 }: PlaybackBarProps) {
-  // Generate stable waveform height percentages (50 bars)
+  // Generate stable waveform height percentages (80 bars for rich desktop presentation)
   const waveBars = useMemo(() => {
     const bars: number[] = [];
     let seed = waveSeed;
-    for (let i = 0; i < 64; i++) {
+    for (let i = 0; i < 80; i++) {
       seed = (seed * 9301 + 49297) % 233280;
       const rnd = seed / 233280;
-      bars.push(Math.max(20, Math.floor(rnd * 90)));
+      bars.push(Math.max(18, Math.floor(rnd * 92)));
     }
     return bars;
   }, [waveSeed]);
@@ -57,33 +57,33 @@ export function PlaybackBar({
       <div className="flex flex-col gap-3">
         {/* Waveform & Timeline Scrubber */}
         <div
-          className="group relative cursor-pointer py-1"
+          className="group relative cursor-pointer py-1.5"
           onClick={handleBarClick}
-          title="Click to seek"
+          title="Click anywhere on waveform to seek"
         >
-          <div className="flex h-10 items-end gap-1 overflow-hidden px-1">
+          <div className="flex h-12 items-end gap-0.5 md:gap-1 overflow-hidden px-1">
             {waveBars.map((height, i) => {
               const barTimePercent = (i / waveBars.length) * 100;
               const isPast = barTimePercent <= progressPercent;
               return (
                 <div
                   key={i}
-                  className="flex-1 rounded-xs transition-colors duration-150"
+                  className="flex-1 rounded-xs transition-all duration-150 group-hover:opacity-90"
                   style={{
                     height: `${height}%`,
                     backgroundColor: isPast
                       ? "var(--accent)"
-                      : "color-mix(in oklab, var(--line) 70%, transparent)",
+                      : "color-mix(in oklab, var(--line) 75%, transparent)",
                   }}
                 />
               );
             })}
           </div>
 
-          {/* Progress Overlay bar */}
-          <div className="mt-1.5 h-1.5 w-full rounded-full bg-[var(--line)]/50">
+          {/* Progress Bar with Thumb Indicator */}
+          <div className="relative mt-2 h-2 w-full rounded-full bg-[var(--line)]/50 overflow-hidden">
             <div
-              className="h-full rounded-full bg-[var(--accent)] transition-all duration-100"
+              className="h-full rounded-full bg-[var(--accent)] transition-all duration-75"
               style={{ width: `${progressPercent}%` }}
             />
           </div>

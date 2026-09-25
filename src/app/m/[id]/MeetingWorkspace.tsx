@@ -71,6 +71,16 @@ export function MeetingWorkspace({
     }
   }, [initialTimeSec, initialCueId, seekTo]);
 
+  // Auto-scroll active cue into view during live playback when in transcript view
+  useEffect(() => {
+    if (isPlaying && activeCue && mainTab === "transcript") {
+      const el = document.getElementById(activeCue.id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }
+  }, [activeCue, isPlaying, mainTab]);
+
   // Jump to cue helper
   const jumpToCue = (startSec: number, cueId?: string) => {
     seekTo(startSec);
@@ -149,7 +159,7 @@ export function MeetingWorkspace({
   const doneActionCount = actionItems.filter((a) => a.status === "done").length;
 
   return (
-    <div className="mx-auto max-w-[1400px] px-4 py-6 md:px-8">
+    <div className="mx-auto max-w-[1536px] px-4 py-6 md:px-8">
       {/* Workspace Header */}
       <div className="mb-6 rounded-2xl border border-[var(--line)] bg-[var(--panel-2)] p-6 shadow-sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
