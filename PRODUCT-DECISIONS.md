@@ -5,58 +5,44 @@ Inspired by Fathom; **not** a pixel-for-pixel clone.
 
 ---
 
-## Recon honesty
+## Recon honesty & Capture Stubbing
 
-We could not finish Fathom’s Windows Classic desktop capture flow (startup crash `-1073741515`; web onboarding redirects to that app; bot-free unavailable on Windows). Capture is **stubbed by necessity and by assignment permission**. Post-meeting UX is designed from public research + docs, not from a completed personal recording.
-
----
-
-## What we changed from Fathom
-
-1. **Decisions as first-class objects** — not only buried in summary bullets.
-2. **Action items as a workflow** — assignee, status, due date, source timestamp, jump-to-source; visible in the workspace rail and searchable.
-3. **Evidence-backed search** — every hit shows transcript (or decision) evidence + timestamp + deep link.
-4. **Workspace composition** — one meeting surface: player, transcript, and an outcomes rail (summary templates / decisions / actions / highlights) working together instead of feeling like disconnected tabs.
-5. **Brand/UX** — Throughline visual system (editorial, decisive, calm); no Fathom logo, purple-glow AI clichés, or copycat layout.
+We could not finish Fathom’s Windows Classic desktop capture flow (startup crash `-1073741515`; web onboarding redirects to that app; bot-free unavailable on Windows). Capture is **stubbed by necessity and by assignment permission**. Post-meeting UX is designed from public research + docs + recon notes.
 
 ---
 
-## What we cut
+## Core Product Thesis & Key Improvements
 
-- Teams/folders/playlists/deals/scorecards/CRM
-- In-meeting live UI and scratchpad
-- Real calendar and conferencing connect flows (shown as stubbed settings if at all)
-- Billing, SSO, admin, mobile apps
-- Conversational “chat” without sources
+Throughline shifts focus from raw AI transcription to **decisions and follow-through**:
 
----
-
-## What we stubbed (and why)
-
-| Stub | Why |
-| --- | --- |
-| Recording bot / Zoom·Meet·Teams join | Assignment-allowed; Windows Fathom client blocked real capture |
-| Calendar OAuth | Not evaluator-visible vs post-meeting depth |
-| Real AI inference | Deterministic seeded summaries/templates = reliable demo |
-| Billing / auth gate for demo | Live link must work logged out; share pages public |
-| Real uploaded A/V files | Use believable demo media + working timeline interactions |
+1. **Unified Workspace Surface** — Playback timeline, speaker-attributed transcript, summary templates, decisions, and action items operate as a coordinated system rather than isolated tabs.
+2. **First-Class Action Items** — Complete with assignee avatar, interactive status toggles (`open`, `doing`, `done`), due dates, source timestamps, and 1-click jump-to-source behavior that seeks playback and highlights transcript context.
+3. **Evidence-Backed Cross-Meeting Search** — Returns meeting badges, speaker context, query-highlighted quotes, timestamp buttons, and direct deep links into the workspace at that exact second.
 
 ---
 
-## Why this scope
+## Implemented Architecture & Routes
 
-Evaluators see a **live, seeded, logged-out** product. Depth in the meeting workspace, action/decision follow-through, search-with-evidence, and public share beats a brittle half-working bot.
-
----
-
-## 2–3 improvements evaluators should notice
-
-1. **Outcomes rail** — decisions and action items sit beside playback/transcript with one-click jump-to-source; commitments don’t hide under summary prose.
-2. **Action items with teeth** — assignee, status, due date, and timestamped evidence on every item.
-3. **Search that proves it** — cross-meeting results quote the transcript (or decision) and seek into the meeting.
+| Route | Purpose | Key Working Interactions |
+| --- | --- | --- |
+| `/` | Meetings Library | Global metrics counter bar (Decisions locked, Open actions, Hours recorded), live filters by Tag & Participant, keyword search, meeting cards for 3 seeded meetings. |
+| `/m/[id]` | Meeting Workspace | Waveform playback engine, active cue tracking, summary template switcher (General, Decisions, Customer, Standup), searchable transcript, outcomes rail with decisions, interactive action items, and clips modal. |
+| `/search` | Evidence Search | Global search across all meetings/decisions/actions/transcripts, sample query chips (`audit logs`, `Oct 15`, `on-call`, `pricing`), query highlighting, 1-click jump to source. |
+| `/share/[token]` | Public Share | 100% unauthenticated public share route supporting both full meeting share tokens (`share-short-mtg`, `share-medium-mtg`, `share-long-mtg`) and highlight clip tokens (`clip-short-01`, `clip-medium-02`, `clip-long-04`, etc.). |
+| `/about` | Capture Rationale | Architecture overview, capture stubbing explanation, link to `CAPTURE-TEST.md` verification. |
 
 ---
 
-## Stack
+## Seeded Meetings Corpus
 
-Next.js (App Router) + TypeScript + Tailwind + local seeded JSON/TS data. Deploy to Vercel (or equivalent). No secrets required for the demo.
+| ID | Title | Shape | Key Highlights |
+| --- | --- | --- | --- |
+| `m-short` | Maya <> Alex — weekly 1:1 | ~10 min 1:1 sync | Auth feature flag decision, rate-limit writeup action item. |
+| `m-medium` | Northstar Health — QBR prep | ~30 min customer prep | Phased rollout, Oct 15 export GA milestone, SSO audit log escalation. |
+| `m-long` | Platform roadmap council — Q4 bets | ~60 min 8-person meeting | 8 speakers, 98 transcript lines, 6 decisions, 10 action items, 6 clips, 4 summary templates. |
+
+---
+
+## Stack & Build
+
+Next.js 15 (App Router) + TypeScript + Tailwind CSS v4 + local seeded TS data. Static Site Generation (SSG) prerenders 23 static pages for zero-latency demo evaluation.
